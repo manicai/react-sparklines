@@ -6,10 +6,6 @@ interface SparkbarProperties {
 }
 
 class Sparkbars extends React.Component<SparkbarProperties, {}> {
-    propTypes = {
-        data: React.PropTypes.arrayOf(React.PropTypes.number)
-    }
-
     render(): void {
         const max_height = 20;
         const zero_line = max_height / 2.0;
