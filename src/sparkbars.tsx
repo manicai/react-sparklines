@@ -7,29 +7,31 @@ interface SparkbarProperties {
 
 class Sparkbars extends React.Component<SparkbarProperties, {}> {
     render(): void {
+        // Basic values. TODO make these configurable.
         const max_height = 20;
-        const zero_line = max_height / 2.0;
-        const width = 4;
+        const zero_line  = max_height / 2.0;
+        const width      = 4;
+
+        // Derived values.
+        const min    = Math.min(0, Math.min.apply(Math, this.props.data));
+        const max    = Math.max(0, Math.max.apply(Math, this.props.data));
+        const range  = 2 * Math.max(Math.abs(min), Math.abs(max));
+        const scale  = function (y) { return y / range * max_height; };
+        const base   = function (y) { 
+                            return y < 0 ? zero_line : scale(max - y); 
+                        };
+        const height = function (y) { return scale(Math.abs(y)); };
+        const cls    = function (y) {
+                            var value = "bar";
+                            if (y < 0) { value += " down"; }
+                            else if (y > 0) { value += " up"; }
+
+                            if (y === max) { value += " max"; }
+                            if (y === min) { value += " min"; }
+                            return value;
+                        };
 
         var bars = [];
-        const min = Math.min(0, Math.min.apply(Math, this.props.data));
-        const max = Math.max(0, Math.max.apply(Math, this.props.data));
-        const range = 2 * Math.max(Math.abs(min), Math.abs(max));
-        var scale = function (y) { return y / range * max_height; };
-        var base = function (y) { 
-                return y < 0 ? zero_line : scale(max - y); 
-            };
-        var height = function (y) { return scale(Math.abs(y)); };
-        var cls = function (y) {
-                var value = "bar";
-                if (y < 0) { value += " down"; }
-                else if (y > 0) { value += " up"; }
-
-                if (y === max) { value += " max"; }
-                if (y === min) { value += " min"; }
-                return value;
-            };
-
         for (var idx in this.props.data) {
             var value = this.props.data[idx];
             bars.push(<rect className={cls(value)} height={height(value)}

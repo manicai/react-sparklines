@@ -1,6 +1,6 @@
 
 all:
-	tsc --jsx react -m amd src/sparkbars.tsx --outDir build
+	tsc --jsx react --removeComments -m amd src/sparkbars.tsx --outDir build
 
 clean:
 	$(RM) build
