@@ -1,9 +1,6 @@
 require.config({
     paths: {
-        jsx: "https://cdn.rawgit.com/philix/jsx-requirejs-plugin/master/js/jsx",
-        JSXTransformer: "https://fb.me/JSXTransformer-0.13.3",
         "react/addons": "https://cdnjs.cloudflare.com/ajax/libs/react/0.13.3/react-with-addons.min",
-        text: "https://cdnjs.cloudflare.com/ajax/libs/require-text/2.0.12/text.min",
         sparkbars: "../build/sparkbars"
     }
 })
