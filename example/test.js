@@ -13,6 +13,6 @@ require(["react/addons", "sparkbars"], function(React, Sparkbars) {
                 -2543, -4296, -4295, -6508, -3289, -3280,
                  7887, -7128];
 
-    React.render(Sparkbars({ data: data }), 
+    React.render(Sparkbars({ data: data, labels: true }), 
                  document.getElementById("js-app-container"));
 })

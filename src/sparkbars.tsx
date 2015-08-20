@@ -2,7 +2,8 @@
 import React = require("react/addons");
 
 interface SparkbarProperties {
-    data: number[]
+    data: number[],
+    labels?: boolean
 }
 
 class Sparkbars extends React.Component<SparkbarProperties, {}> {
@@ -29,25 +30,29 @@ class Sparkbars extends React.Component<SparkbarProperties, {}> {
                             return value;
                         };
 
-        var bars = [];
+        var elements = [];
         for (var idx in this.props.data) {
             const value = this.props.data[idx];
-            bars.push(<rect className={cls(value)} height={height(value)}
-                            key={idx} title={value} width={width}
-                            x={idx * (width+1)} y={base(value)}></rect>);
+            elements.push(<rect className={cls(value)} height={height(value)}
+                                key={idx} title={value} width={width}
+                                x={idx * (width+1)} y={base(value)}></rect>);
+        }
+
+        if (this.props.labels) {
+            const label_x_position = (width+1)*elements.length;
+            elements.push(<text className="up" fontSize="10" 
+                                x={label_x_position} y="10">
+                                    {Math.max(max, 0)}
+                          </text>);
+            elements.push(<text className="down" fontSize="10" 
+                                x={label_x_position} y="20">
+                                    {Math.abs(Math.min(0, min))}
+                          </text>);
         }
 
         return (
             <svg height="20px">
-                {bars}
-                <text className="up" fontSize="10" 
-                      x={(width+1)*bars.length} y="10">
-                    {Math.max(max, 0)}
-                </text>
-                <text className="down" fontSize="10" 
-                      x={(width+1)*bars.length} y="20">
-                    {Math.abs(Math.min(0, min))}
-                </text>
+                {elements}
             </svg>);
     }
 }
