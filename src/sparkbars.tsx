@@ -2,8 +2,8 @@
 import React = require("react/addons");
 
 interface SparkbarProperties {
-    data: number[],
-    labels?: boolean
+    data: number[];
+    labels?: boolean;
 }
 
 class Sparkbars extends React.Component<SparkbarProperties, {}> {
@@ -40,11 +40,11 @@ class Sparkbars extends React.Component<SparkbarProperties, {}> {
 
         if (this.props.labels) {
             const label_x_position = (width+1)*elements.length;
-            elements.push(<text className="up" fontSize="10" 
+            elements.push(<text className="up" fontSize="10" key="up"
                                 x={label_x_position} y="10">
                                     {Math.max(max, 0)}
                           </text>);
-            elements.push(<text className="down" fontSize="10" 
+            elements.push(<text className="down" fontSize="10" key="down"
                                 x={label_x_position} y="20">
                                     {Math.abs(Math.min(0, min))}
                           </text>);
